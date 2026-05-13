@@ -234,10 +234,69 @@
       font-size: .95rem;
     }
 
-    .hint {
-      margin-top: 12px;
+    /* CSS cho phần Log mới */
+    .log-section {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .log-header {
+      padding: 12px 18px;
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .log-header i {
+      color: var(--accent);
+    }
+
+    .log-container {
+      height: 200px;
+      overflow-y: auto;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Thanh cuộn cho Log */
+    .log-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .log-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .log-container::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 10px;
+    }
+
+    .log-item {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .log-date {
+      color: var(--accent);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .log-content {
       color: var(--muted);
-      font-size: .92rem;
     }
 
     code {
@@ -246,6 +305,13 @@
       padding: 2px 6px;
       border-radius: 8px;
       color: #d7ddff;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.85rem;
     }
   </style>
 </head>
@@ -257,7 +323,8 @@
       <p class="sub">
         Nội dung được lưu từ nhiều nguồn
       </p>
-      Website chỉ nhằm mục đích lưu trữ, không thay thế cho các web dịch truyện và truyện được phát hành.
+      <p class="sub">
+        Website chỉ nhằm mục đích lưu trữ, không thay thế cho các web dịch truyện và truyện được phát hành.
       </p>
 
       <div class="controls">
@@ -285,6 +352,24 @@
 
       <div id="pager" class="pager"></div>
     </section>
+
+    <section class="log-section">
+      <div class="log-header">
+        <span>📜 LỊCH SỬ CẬP NHẬT</span>
+      </div>
+      <div class="log-container">
+        <div class="log-item">
+          <span class="log-date">13/05/2026</span>
+          <span class="log-content">Hoàn tất public web. Các truyện hiện tại bao gồm:</span>
+          <pre>- Bậc thầy thiết kế: 1 chap
+- Đừng chạm vào cún con của tôi: 1 chap
+- Linh hồn của My Ryeong: 2 chap
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-text">made by Dragon Pixel</p>
   </div>
 
   <script>
@@ -298,8 +383,7 @@
       { title: "Cách tồn tại như một người chơi", chapcount: 0 },
       { title: "Chỉ riêng đuôi là không được", chapcount: 0 },
       { title: "Linh hồn của My Ryeong", chapcount: 0 },
-      {title: "Bậc thầy thiết kế",chapcount: 1}
-
+      { title: "Bậc thầy thiết kế", chapcount: 1 }
     ];
 
     const searchInput = document.getElementById('searchInput');
@@ -430,7 +514,6 @@
 
     render();
   </script>
-  <p>made by Dragon Pixel</p>
 </body>
 
 </html>
