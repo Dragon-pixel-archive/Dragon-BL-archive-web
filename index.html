@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dragon BL Archive</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1e2330;
+      --text: #f3f5fb;
+      --muted: #aab3c5;
+      --accent: #8b5cf6;
+      --accent-2: #22c55e;
+      --line: #2a3142;
+      --chip: #232938;
+      --danger: #ef4444;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .25);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139, 92, 246, .18), transparent 30%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, .10), transparent 25%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(139, 92, 246, .18), rgba(34, 197, 94, .12));
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: .5px
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 900px
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .search {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 14px 16px;
+      font-size: 1rem;
+      border-radius: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      min-width: 140px;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-top: 22px;
+      background: rgba(23, 26, 33, .8);
+      border: 1px solid rgba(255, 255, 255, .07);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-head strong {
+      font-size: 1.05rem
+    }
+
+    .section-head span {
+      color: var(--muted)
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 18px;
+    }
+
+    @media (min-width:760px) {
+      .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width:560px) {
+      .controls {
+        grid-template-columns: 1fr
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .story {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .01));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px 13px;
+      transition: .18s ease;
+      min-height: 76px;
+    }
+
+    .story:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139, 92, 246, .55);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
+    }
+
+    .story .title {
+      display: block;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 7px;
+    }
+
+    .story .path {
+      display: block;
+      color: var(--muted);
+      font-size: .88rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .empty {
+      padding: 28px 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .pager {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 18px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, .015);
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      background: var(--chip);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: .15s ease;
+      min-width: 44px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(139, 92, 246, .45);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      border-color: transparent;
+    }
+
+    .btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .hint {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    code {
+      background: #0b0e14;
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: #d7ddff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Dragon BL Archive</h1>
+      <p class="sub">
+        Nội dung được lưu từ nhiều nguồn
+      </p>
+      Website chỉ nhằm mục đích lưu trữ, không thay thế cho các web dịch truyện và truyện được phát hành.
+      </p>
+
+      <div class="controls">
+        <input id="searchInput" class="search" type="search" placeholder="Tìm theo tên truyện..." />
+        <div id="resultBadge" class="badge">0 truyện</div>
+      </div>
+    </div>
+
+    <section class="section" aria-label="Danh sách truyện">
+      <div class="section-head">
+        <div>
+          <strong>Danh sách truyện</strong><br />
+          <span id="pageInfo">Trang 1</span>
+        </div>
+        <div class="meta">
+          <span>20 truyện / trang</span>
+          <span>•</span>
+          <span>Tìm kiếm không dấu</span>
+        </div>
+      </div>
+
+      <div id="storyGrid" class="grid"></div>
+
+      <div id="emptyState" class="empty" style="display:none;">Không tìm thấy truyện phù hợp.</div>
+
+      <div id="pager" class="pager"></div>
+    </section>
+  </div>
+
+  <script>
+    const STORY_BASE_PATH = "chapters/";
+    const PAGE_SIZE = 20;
+
+    const stories = [
+      { title: "Đừng chạm vào cún con của tôi", chapcount: 0 },
+      { title: "Hunter muốn sống một cách yên bình", chapcount: 0 },
+      { title: "Chất dị ứng đáng yêu", chapcount: 0 },
+      { title: "Cách tồn tại như một người chơi", chapcount: 0 },
+      { title: "Chỉ riêng đuôi là không được", chapcount: 0 },
+      { title: "Linh hồn của My Ryeong", chapcount: 0 },
+      {title: "Bậc thầy thiết kế",chapcount: 1}
+
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const storyGrid = document.getElementById('storyGrid');
+    const pager = document.getElementById('pager');
+    const pageInfo = document.getElementById('pageInfo');
+    const emptyState = document.getElementById('emptyState');
+    const resultBadge = document.getElementById('resultBadge');
+
+    let currentPage = 1;
+    let filteredStories = [...stories].sort((a, b) =>
+      getTitle(a).localeCompare(getTitle(b), 'vi', { sensitivity: 'base' })
+    );
+
+    function getChap(item) {
+      return "Number of chapters : " + item.chapcount;
+    }
+
+    function getTitle(item) {
+      return typeof item === 'string' ? item : (item.title || '');
+    }
+
+    function getFile(item) {
+      if (typeof item === 'string') {
+        return slugify(item) + '.html';
+      }
+      return item.file || (slugify(item.title || '') + '.html');
+    }
+
+    function normalizeText(str) {
+      return (str || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'd')
+        .trim();
+    }
+
+    function slugify(str) {
+      return normalizeText(str)
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '') || 'untitled';
+    }
+
+    function filterStories(query) {
+      const q = normalizeText(query);
+      if (!q) return [...stories].sort((a, b) =>
+        getTitle(a).localeCompare(getTitle(b), 'vi', { sensitivity: 'base' })
+      );
+      return stories
+        .filter(item => normalizeText(getTitle(item)).includes(q))
+        .sort((a, b) => getTitle(a).localeCompare(getTitle(b), 'vi', { sensitivity: 'base' }));
+    }
+
+    function render() {
+      const total = filteredStories.length;
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      currentPage = Math.min(currentPage, totalPages);
+      currentPage = Math.max(currentPage, 1);
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filteredStories.slice(start, start + PAGE_SIZE);
+
+      storyGrid.innerHTML = '';
+      emptyState.style.display = pageItems.length ? 'none' : 'block';
+
+      pageItems.forEach(item => {
+        const title = getTitle(item);
+        const file = getFile(item);
+        const chapcount = getChap(item);
+        const a = document.createElement('a');
+        a.className = 'story';
+        a.href = STORY_BASE_PATH + file;
+        a.innerHTML = `
+          <span class="title">${escapeHtml(title)}</span>
+          <span class="path">${escapeHtml(chapcount)}</span>
+        `;
+        storyGrid.appendChild(a);
+      });
+
+      resultBadge.textContent = `${total} truyện`;
+      pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
+
+      pager.innerHTML = '';
+
+      const makeBtn = (label, disabled, onClick, active = false) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn' + (active ? ' active' : '');
+        btn.textContent = label;
+        btn.disabled = disabled;
+        btn.addEventListener('click', onClick);
+        return btn;
+      };
+
+      pager.appendChild(makeBtn('«', currentPage === 1, () => { currentPage = 1; render(); }));
+      pager.appendChild(makeBtn('‹', currentPage === 1, () => { currentPage--; render(); }));
+
+      const windowSize = 5;
+      let startPage = Math.max(1, currentPage - Math.floor(windowSize / 2));
+      let endPage = Math.min(totalPages, startPage + windowSize - 1);
+      startPage = Math.max(1, endPage - windowSize + 1);
+
+      for (let p = startPage; p <= endPage; p++) {
+        pager.appendChild(makeBtn(String(p), false, () => { currentPage = p; render(); }, p === currentPage));
+      }
+
+      pager.appendChild(makeBtn('›', currentPage === totalPages, () => { currentPage++; render(); }));
+      pager.appendChild(makeBtn('»', currentPage === totalPages, () => { currentPage = totalPages; render(); }));
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    searchInput.addEventListener('input', () => {
+      filteredStories = filterStories(searchInput.value);
+      currentPage = 1;
+      render();
+    });
+
+    render();
+  </script>
+  <p>made by Dragon Pixel</p>
+</body>
+
+</html>
