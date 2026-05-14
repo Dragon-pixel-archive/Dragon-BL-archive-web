@@ -14,29 +14,87 @@
             align-items: center;
         }
 
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(139, 92, 246, .18), rgba(34, 197, 94, .10));
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 26px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .topbar {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+
         .manga-container {
             width: 100%;
-            max-width: 800px; 
-            line-height: 0;   
+            max-width: 800px;
+            line-height: 0;
         }
 
         .manga-container img {
-            width: 100%;      
-            height: auto;   
-            display: block; 
+            width: 100%;
+            height: auto;
+            display: block;
             margin: 0;
             padding: 0;
             border: none;
         }
 
+        .sub {
+            margin: 8px 0 0;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background: var(--chip);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 11px 14px;
+            font-weight: 700;
+            transition: .15s ease;
+            white-space: nowrap;
+        }
+
         img {
-            transition: opacity 0.3s;
+            transition: opacity 0.1s;
         }
     </style>
 </head>
 <body>
 
-    <div class="manga-container">
+    <div class="wrap">
+        <div class="hero">
+            <div class="topbar">
+                <div>
+                    <h1 id="storyTitle">Linh hồn của My Ryeong</h1>
+                    <p class="sub">
+                        Truyện về hai pháp sư trừ tà trẻ tuổi đầy tài năng
+                    </p>
+                </div>
+                <a id="homeBtn" class="home" href="../../chapters/linh-hon-cua-my-ryeong.html">← Quay lại danh
+                    sách chương</a>
+            </div>
+        </div>
+
+        <div class="manga-container">
             <img src="./chap 1/1.webp" alt="Trang 1">
             <img src="./chap 1/2.webp" alt="Trang 2">
             <img src="./chap 1/3.webp" alt="Trang 3">
@@ -67,6 +125,7 @@
             <img src="./chap 1/28.webp" alt="Trang 28">
             <img src="./chap 1/29.webp" alt="Trang 29">
         </div>
+    </div>
 
 </body>
 </html>

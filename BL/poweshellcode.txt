@@ -1,0 +1,12 @@
+$template = "chuong-1.html" 
+
+1..50 | ForEach-Object {
+    $index = $_
+    $dirName = "chap $index"
+    if (-not (Test-Path $dirName)) {
+        New-Item -ItemType Directory -Name $dirName
+    }
+    
+    $newFileName = "chuong-$index.html"
+    Copy-Item $template -Destination $newFileName
+}
