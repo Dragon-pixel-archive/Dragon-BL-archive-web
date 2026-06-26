@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dragon BL Archive</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1e2330;
+      --text: #f3f5fb;
+      --muted: #aab3c5;
+      --accent: #8b5cf6;
+      --accent-2: #22c55e;
+      --line: #2a3142;
+      --chip: #232938;
+      --danger: #ef4444;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Arial,
+        sans-serif;
+      background:
+        radial-gradient(circle at top left,
+          rgba(13, 92, 247, 0.18),
+          transparent 30%),
+        radial-gradient(circle at top right,
+          rgba(34, 197, 94, 0.1),
+          transparent 25%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg,
+          rgba(139, 92, 246, 0.18),
+          rgba(34, 197, 94, 0.11));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: 0.5px;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .search {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 14px 16px;
+      font-size: 1rem;
+      border-radius: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      min-width: 140px;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-top: 22px;
+      background: rgba(23, 26, 33, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-head strong {
+      font-size: 1.05rem;
+    }
+
+    .section-head span {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 18px;
+    }
+
+    @media (min-width: 760px) {
+      .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .story {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px 13px;
+      transition: 0.18s ease;
+      min-height: 360px;
+    }
+
+    .story:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139, 92, 246, 0.55);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+    }
+
+    .story .title {
+      display: block;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 7px;
+    }
+
+    .story .path {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .empty {
+      padding: 28px 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .pager {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 18px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      background: var(--chip);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.15s ease;
+      min-width: 44px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(139, 92, 246, 0.45);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      border-color: transparent;
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .log-section {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .log-header {
+      padding: 12px 18px;
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .log-header i {
+      color: var(--accent);
+    }
+
+    .log-container {
+      height: 200px;
+      overflow-y: auto;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Thanh cuộn cho Log */
+    .log-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .log-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .log-container::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 10px;
+    }
+
+    .log-item {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .log-date {
+      color: var(--accent);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .log-content {
+      color: var(--muted);
+    }
+
+    code {
+      background: #0b0e14;
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: #d7ddff;
+    }
+
+    .cover {
+      width: 100%;
+      height: 220px;
+
+      object-fit: cover;
+
+      border-radius: 10px;
+
+      margin-bottom: 10px;
+
+      display: block;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .story-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .story-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Dragon BL Archive</h1>
+      <p class="sub">Nội dung được lưu từ nhiều nguồn</p>
+      <p class="sub">
+        Website chỉ nhằm mục đích lưu trữ, không thay thế cho các web dịch
+        truyện và truyện được phát hành.
+      </p>
+
+      <div class="controls">
+        <input id="searchInput" class="search" type="search" placeholder="Tìm theo tên truyện..." />
+        <div id="resultBadge" class="badge">0 truyện</div>
+      </div>
+    </div>
+
+    <section class="section" aria-label="Danh sách truyện">
+      <div class="section-head">
+        <div>
+          <strong>Danh sách truyện</strong><br />
+          <span id="pageInfo">Trang 1</span>
+        </div>
+        <div class="meta">
+          <span>20 truyện / trang</span>
+          <span>•</span>
+          <span>Tìm kiếm không dấu</span>
+        </div>
+      </div>
+
+      <div id="storyGrid" class="grid"></div>
+
+      <div id="emptyState" class="empty" style="display: none">
+        Không tìm thấy truyện phù hợp.
+      </div>
+
+      <div id="pager" class="pager"></div>
+    </section>
+
+    <section class="log-section">
+      <div class="log-header">
+        <span>THÔNG BÁO</span>
+      </div>
+      <div class="log-container">
+        <div class="log-item">
+          <span class="log-date">THÔNG BÁO</span>
+          <span class="log-content">Tạm nghỉ tới hết ngày 17/05/2025 do bận đi du lịch</span>
+          <pre>
+Mọi vấn đề phát sinh, lỗi và yêu cầu lưu trữ vui lòng liên hệ admin
+          </pre>
+        </div>
+      </div>
+
+      <div class="log-header">
+        <span>📜 LỊCH SỬ CẬP NHẬT</span>
+      </div>
+      <div class="log-container">
+        <div class="log-item">
+          <span class="log-date">13/05/2026</span>
+          <span class="log-content">Hoàn tất public web. Các truyện hiện tại bao gồm:</span>
+          <pre>
+- Bậc thầy thiết kế: 1 chap
+- Đừng chạm vào cún con của tôi: 1 chap
+- Linh hồn của My Ryeong: 2 chap
+          </pre>
+        </div>
+
+        <div class="log-item">
+          <span class="log-date">14/05/2026</span>
+          <span class="log-content">Cập nhật 13 chap bộ <b>"Linh hồn của My Ryeong"</b></span>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-text">made by Dragon Pixel</p>
+  </div>
+
+  <script>
+    const STORY_BASE_PATH = "chapters/";
+    const PAGE_SIZE = 20;
+
+    let stories = [];
+
+    const searchInput = document.getElementById("searchInput");
+    const storyGrid = document.getElementById("storyGrid");
+    const pager = document.getElementById("pager");
+    const pageInfo = document.getElementById("pageInfo");
+    const emptyState = document.getElementById("emptyState");
+    const resultBadge = document.getElementById("resultBadge");
+
+    let currentPage = 1;
+    let filteredStories = [...stories].sort((a, b) =>
+      getTitle(a).localeCompare(getTitle(b), "vi", { sensitivity: "base" }),
+    );
+
+
+
+    function getTitle(item) {
+      return typeof item === "string" ? item : item.title || "";
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return "Chưa cập nhật ngày tạo!";
+
+      return new Date(dateString).toLocaleDateString("vi-VN");
+    }
+
+    function getFile(item) {
+      if (typeof item === "string") {
+        return slugify(item) + ".html";
+      }
+      return item.file || slugify(item.title || "") + ".html";
+    }
+
+    function normalizeText(str) {
+      return (str || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "d")
+        .trim();
+    }
+
+    function slugify(str) {
+      return (
+        normalizeText(str)
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "") || "untitled"
+      );
+    }
+
+    function filterStories(query) {
+      const q = normalizeText(query);
+      if (!q)
+        return [...stories].sort((a, b) =>
+          getTitle(a).localeCompare(getTitle(b), "vi", {
+            sensitivity: "base",
+          }),
+        );
+      return stories
+        .filter((item) => normalizeText(getTitle(item)).includes(q))
+        .sort((a, b) =>
+          getTitle(a).localeCompare(getTitle(b), "vi", {
+            sensitivity: "base",
+          }),
+        );
+    }
+
+    async function loadStories() {
+      const response = await fetch("/stories");
+
+      stories = await response.json();
+
+      filteredStories = [...stories].sort((a, b) =>
+        getTitle(a).localeCompare(getTitle(b), "vi", { sensitivity: "base" }),
+      );
+
+      render();
+    }
+
+    async function render() {
+      const total = filteredStories.length;
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      currentPage = Math.min(currentPage, totalPages);
+      currentPage = Math.max(currentPage, 1);
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filteredStories.slice(start, start + PAGE_SIZE);
+
+      storyGrid.innerHTML = "";
+      emptyState.style.display = pageItems.length ? "none" : "block";
+
+      for (const item of pageItems) {
+        const title = getTitle(item);
+        const file = getFile(item);
+        const chapCount = Number(item.chapCount ?? 0);
+        const a = document.createElement("a");
+        const latestChapter =
+          item.latestChapter != null
+            ? `Chương ${item.latestChapter}`
+            : "Chưa có chương";
+        a.className = "story";
+        a.href = "/read/" + item.slug;
+        a.innerHTML = `
+            <img
+              class="cover"
+              src="${escapeHtml(item.coverUrl || "/images/no-cover.jpg")}"
+              alt="${escapeHtml(title)}"
+            >
+
+            <span class="title">
+              ${escapeHtml(title)}
+            </span>
+
+            <span class="path">
+              ${chapCount} chương
+            </span>
+
+            <span class="path">
+              Chương mới nhất: ${latestChapter}
+            </span>
+
+            <span class="path">
+              Tình trạng: 
+              ${escapeHtml(
+          {
+            ongoing: "Đang cập nhật",
+            completed: "Hoàn thành",
+            cancelled: "Đã drop",
+          }[item.status] || "Chưa cập nhật trạng thái!",
+        )}
+            </span>
+
+            <div class="story-meta">
+              <span class="views">
+                👁 ${Number(item.views).toLocaleString("vi-VN")}
+              </span>
+
+              <span class="rating">
+                ⭐ ${item.rating ?? "0.00"}
+               </span>
+            </div>
+
+            <span class="path">
+              ${formatDate(item.createdAt)}
+            </span>
+          `;
+        storyGrid.appendChild(a);
+      }
+
+      resultBadge.textContent = `${total} truyện`;
+      pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
+
+      pager.innerHTML = "";
+
+      const makeBtn = (label, disabled, onClick, active = false) => {
+        const btn = document.createElement("button");
+        btn.className = "btn" + (active ? " active" : "");
+        btn.textContent = label;
+        btn.disabled = disabled;
+        btn.addEventListener("click", onClick);
+        return btn;
+      };
+
+      pager.appendChild(
+        makeBtn("«", currentPage === 1, () => {
+          currentPage = 1;
+          render();
+        }),
+      );
+      pager.appendChild(
+        makeBtn("‹", currentPage === 1, () => {
+          currentPage--;
+          render();
+        }),
+      );
+
+      const windowSize = 5;
+      let startPage = Math.max(1, currentPage - Math.floor(windowSize / 2));
+      let endPage = Math.min(totalPages, startPage + windowSize - 1);
+      startPage = Math.max(1, endPage - windowSize + 1);
+
+      for (let p = startPage; p <= endPage; p++) {
+        pager.appendChild(
+          makeBtn(
+            String(p),
+            false,
+            () => {
+              currentPage = p;
+              render();
+            },
+            p === currentPage,
+          ),
+        );
+      }
+
+      pager.appendChild(
+        makeBtn("›", currentPage === totalPages, () => {
+          currentPage++;
+          render();
+        }),
+      );
+      pager.appendChild(
+        makeBtn("»", currentPage === totalPages, () => {
+          currentPage = totalPages;
+          render();
+        }),
+      );
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    searchInput.addEventListener("input", () => {
+      filteredStories = filterStories(searchInput.value);
+      currentPage = 1;
+      render();
+    });
+
+    loadStories();
+  </script>
+</body>
+
+</html>

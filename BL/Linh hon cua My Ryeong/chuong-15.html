@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đọc Truyện Online</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .manga-container {
+            width: 100%;
+            max-width: 800px;
+            line-height: 0;
+        }
+
+        .manga-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        img {
+            transition: opacity 0.3s;
+        }
+
+        .control_bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            /* Hoặc màu tối tùy bạn */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        .control_bottom_content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 15px;
+        }
+
+        .control_center_content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .select_chap {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .control_bottom_content a {
+            text-decoration: none;
+            color: #333;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .link-prev-chap,
+        .link-next-chap {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #f0f0f0;
+            color: #333;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .link-prev-chap:hover,
+        .link-next-chap:hover {
+            background-color: #e0e0e0;
+        }
+
+        .story-header {
+            background-color: #444444;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            width: auto;
+            text-align: center;
+        }
+
+        .story-header .breadcrumb {
+            text-align: left;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .story-header .breadcrumb a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .story-header .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .story-header .breadcrumb .separator {
+            color: #888;
+            margin: 0 8px;
+            font-size: 12px;
+        }
+
+        .story-header .breadcrumb .current-page {
+            color: #cccccc;
+        }
+
+        .story-header .story-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+        }
+
+        .story-header .update-time {
+            background-color: hsl(251, 100%, 25%);
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+            padding: 12px;
+            font-weight: bold;
+            font-style: italic;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .story-header .header-control-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .story-header .btn-nav {
+            display: inline-block;
+            background-color: hsl(244, 100%, 25%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .story-header .btn-nav:hover {
+            background-color: hsl(143, 100%, 30%);
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: hsl(175, 100%, 50%);
+            color: white;
+            cursor: pointer;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #backToTop:hover {
+            background-color: #006eff;
+        }
+
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="story-header">
+        <div class="breadcrumb">
+            <a href="/">Trang Chủ</a>
+            <span class="separator">▶</span>
+            <a href="/truyen/linh-hon-cua-mu-ryeong">Linh Hồn Của Mu Ryeong</a>
+            <span class="separator">▶</span>
+            <span class="current-page">Chapter 15</span>
+        </div>
+
+        <h1 class="story-title">Linh Hồn Của Mu Ryeong - Chapter 15</h1>
+
+
+        <div class="header-control-buttons">
+            <a href="/chapter-14" class="btn-nav"> Chap trước</a>
+            <a href="/chapter-16" class="btn-nav">Chap sau </a>
+        </div>
+    </div>
+
+    <div class="manga-container">
+        <img src="./chap 15/1.webp" alt="Trang 1">
+        <img src="./chap 15/2.webp" alt="Trang 2">
+        <img src="./chap 15/3.webp" alt="Trang 3">
+        <img src="./chap 15/4.webp" alt="Trang 4">
+        <img src="./chap 15/5.webp" alt="Trang 5">
+        <img src="./chap 15/6.webp" alt="Trang 6">
+        <img src="./chap 15/7.webp" alt="Trang 7">
+        <img src="./chap 15/8.webp" alt="Trang 8">
+        <img src="./chap 15/9.webp" alt="Trang 9">
+        <img src="./chap 15/10.webp" alt="Trang 10">
+        <img src="./chap 15/11.webp" alt="Trang 11">
+        <img src="./chap 15/12.webp" alt="Trang 12">
+        <img src="./chap 15/13.webp" alt="Trang 13">
+        <img src="./chap 15/14.webp" alt="Trang 14">
+        <img src="./chap 15/15.webp" alt="Trang 15">
+        <img src="./chap 15/16.webp" alt="Trang 16">
+        <img src="./chap 15/17.webp" alt="Trang 17">
+        <img src="./chap 15/18.webp" alt="Trang 18">
+        <img src="./chap 15/19.webp" alt="Trang 19">
+        <img src="./chap 15/20.webp" alt="Trang 20">
+        <img src="./chap 15/21.webp" alt="Trang 21">
+        <img src="./chap 15/22.webp" alt="Trang 22">
+        <img src="./chap 15/23.webp" alt="Trang 23">
+        <img src="./chap 15/24.webp" alt="Trang 24">
+        <img src="./chap 15/25.webp" alt="Trang 25">
+        <img src="./chap 15/26.webp" alt="Trang 26">
+        <img src="./chap 15/27.webp" alt="Trang 27">
+        <img src="./chap 15/28.webp" alt="Trang 28">
+        <img src="./chap 15/29.webp" alt="Trang 29">
+        <img src="./chap 15/30.webp" alt="Trang 30">
+        <img src="./chap 15/31.webp" alt="Trang 31">
+        <img src="./chap 15/32.webp" alt="Trang 32">
+        <img src="./chap 15/33.webp" alt="Trang 33">
+        <img src="./chap 15/34.webp" alt="Trang 34">
+        <img src="./chap 15/35.webp" alt="Trang 35">
+    </div>
+    <div class="control_bottom">
+        <div class="control_bottom_content">
+            <div class="control_left">
+                <a href="https://dualeotruyenhx.com/"><i class="fa fa-home"></i><span> Trang chủ</span></a>
+            </div>
+            <div class="control_center">
+                <div class="control_center_content">
+                    <div class="level-left">
+                        <a class="link-prev-chap _text" href="/BL/Linh hon cua My Ryeong/chuong-14c.html"
+                            aria-label="Chap trước"> Chap trước</a>
+                    </div>
+                    <div class="level-center">
+                        <select class="select_chap" aria-label="Chọn chapter">
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-1.html">Chapter 1</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-2.html">chapter 2</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-3.html">chapter 3</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-4.html">chapter 4</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-5.html">chapter 5</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-6.html">chapter 6</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-7.html">chapter 7</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-8.html">chapter 8</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-9.html">chapter 9</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-10.html">chapter 10</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-11.html">chapter 11</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-12.html">chapter 12</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-13.html">chapter 13</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-14.html">chapter 14</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-15.html" selected>chapter 15</option>
+                            <option value="/BL/Linh hon cua My Ryeong/chuong-16.html">chapter 16</option>
+
+                        </select>
+                    </div>
+                    <div class="level-right">
+                        <a class="link-next-chap _text" href="/BL/Linh hon cua My Ryeong/chuong-16.html"
+                            aria-label="Chap sau">Chap sau </a>
+                    </div>
+                </div>
+            </div>
+            <div class="control_right">
+            </div>
+        </div>
+    </div>
+    <button id="backToTop" title="Về đầu trang">▲</button>
+</body>
+<script>
+    document.querySelector('.select_chap').addEventListener('change', function () {
+        var url = this.value;
+        if (url) {
+            window.location.href = url;
+        }
+    });
+
+    const backToTopBtn = document.getElementById("backToTop");
+
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            backToTopBtn.classList.add("show");
+        } else {
+            backToTopBtn.classList.remove("show");
+        }
+    }
+
+    backToTopBtn.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" 
+        });
+    });
+</script>
+
+</html>

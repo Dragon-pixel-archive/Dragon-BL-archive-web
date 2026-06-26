@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Chapter</title>
+</head>
+<body>
+
+  <h2>Upload Chapter Images 🚀</h2>
+
+  <input id="storyId" placeholder="Story ID" />
+  <input id="ChapterId" placeholder="Chapter ID"/>
+  <input id="chapterNumber" placeholder="Chapter Number" />
+
+  <br><br>
+
+  <!-- CHỌN FOLDER -->
+  <input id="folder" type="file" webkitdirectory multiple />
+
+  <button onclick="upload()">Upload</button>
+
+  <script>
+    async function upload() {
+      const storyId = document.getElementById("storyId").value;
+      const ChapterId = document.getElementById("ChapterId").value;
+      const chapterNumber = document.getElementById("chapterNumber").value;
+      const files = document.getElementById("folder").files;
+
+      const formData = new FormData();
+
+      formData.append("storyId", storyId);
+      formData.append("ChapterId",ChapterId);
+      formData.append("chapterNumber", chapterNumber);
+
+      for (let file of files) {
+        formData.append("images", file);
+      }
+
+      const res = await fetch("/api/upload-chapter", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      console.log(data);
+      alert("Upload xong 🚀");
+    }
+  </script>
+
+</body>
+</html>

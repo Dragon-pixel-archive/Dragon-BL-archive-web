@@ -1,0 +1,17 @@
+types
+
+Ví dụ
+
+Manga
+Manhwa
+Manhua
+Novel
+Doujin
+One-shot
+
+Đầu tiên tìm storyId từ storySlug.
+Sau đó tìm chapter hiện tại bằng storyId + chapterNumber.
+Khi đã có chapter hiện tại, bạn đã biết:
+chapter.id → lấy images.
+chapter.chapterNumber → lấy previous.
+chapter.chapterNumber → lấy next.
