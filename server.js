@@ -15,7 +15,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/css", express.static(path.join(__dirname, "css")));
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -29,7 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/stories", storyRoutes);
-app.use("/read", readRoutes)
+app.use("/read", readRoutes);
 
 //trang chủ thông tin truyện
 app.get("/stories", async (req, res) => {

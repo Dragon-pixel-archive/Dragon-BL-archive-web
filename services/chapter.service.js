@@ -54,8 +54,8 @@ export async function getChapter(storySlug, chapterNumber) {
 
     const maxChapter = lastedChapter ?? 0;
 
-    const chapterPre = chapterNumber > 1 ? chapterNumber - 1 : null;
-    const chapterNext = chapterNumber < maxChapter ? chapterNumber + 1 : null;
+    const chapterPre = chapterNumber > 1 ? (+chapterNumber) - 1 : null;
+    const chapterNext = chapterNumber < maxChapter ? (+chapterNumber) + 1 : null;
 
     return {
         story,

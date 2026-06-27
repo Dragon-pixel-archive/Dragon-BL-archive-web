@@ -1,0 +1,107 @@
+.header {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            background: #0d1726;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, .3);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 48px;
+            width: auto;
+            border-radius: 50px;
+            object-fit: cover;
+            border: 2px solid lightblue;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+        }
+
+        .menu {
+            font-size: 16px;
+            padding: 10px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #d8dce7;
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: .3s;
+            background: transparent;
+        }
+
+        .menu a:hover {
+            background: #1c2a40;
+            color: white;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+
+        .search {
+            width: clamp(100px, 35vw, 500px);
+            margin: 0 20px;
+            display: flex;
+        }
+
+        .search-input::placeholder {
+            color: #9097a7;
+        }
+
+        .search-input {
+            flex: 1;
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            color: #333;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px 0 0 20px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #4f46e5;
+        }
+
+        .search-btn {
+            padding: 0 20px;
+            font-size: 15px;
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 0 20px 20px 0;
+            border-left: none;
+            cursor: pointer;
+        }
+
+        .bookmark,
+        .account {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background: #141d2d;
+            color: white;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .bookmark:hover,
+        .account:hover {
+            background: #253551;
+        }

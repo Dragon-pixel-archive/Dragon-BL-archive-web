@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background: #08111f;
@@ -24,114 +27,6 @@
 
         }
 
-        .header {
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-            background: #0d1726;
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
-            box-shadow: 0 3px 15px rgba(0, 0, 0, .3);
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 48px;
-            width: auto;
-            border-radius: 50px;
-            object-fit: cover;
-            border: 2px solid lightblue;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
-        }
-
-        .menu {
-            font-size: 16px;
-            padding: 10px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .menu a {
-            text-decoration: none;
-            color: #d8dce7;
-            padding: 10px 18px;
-            border-radius: 10px;
-            transition: .3s;
-            background: transparent;
-        }
-
-        .menu a:hover {
-            background: #1c2a40;
-            color: white;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            justify-content: flex-end;
-            gap: 20px;
-        }
-
-        .search {
-            width: clamp(100px, 35vw, 500px);
-            margin: 0 20px;
-            display: flex;
-        }
-
-        .search-input::placeholder {
-            color: #9097a7;
-        }
-
-        .search-input {
-            flex: 1;
-            width: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 16px;
-            color: #333;
-            padding: 12px 16px;
-            border: 1px solid rgba(255, 255, 255, .08);
-            border-radius: 20px 0 0 20px;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: #4f46e5;
-        }
-
-        .search-btn {
-            padding: 0 20px;
-            font-size: 15px;
-            background-color: white;
-            color: black;
-            border: 1px solid #ccc;
-            border-radius: 0 20px 20px 0;
-            border-left: none;
-            cursor: pointer;
-        }
-
-        .bookmark,
-        .account {
-            width: 42px;
-            height: 42px;
-            border: none;
-            border-radius: 50%;
-            background: #141d2d;
-            color: white;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .bookmark:hover,
-        .account:hover {
-            background: #253551;
-        }
-
         .story-hero {
             height: 350px;
             background: rgb(27, 27, 27);
@@ -145,7 +40,7 @@
 
         <div class="header-left">
 
-            <a href="/" class="logo">
+            <a href="/" class="logo" alt="logo">
                 <img src="https://bwl3ugxlcpfaxorl.public.blob.vercel-storage.com/search-icon">
             </a>
 
@@ -160,8 +55,8 @@
         <div class="header-right">
 
             <form class="search">
-                <input class="search-input" type="text">
-                <button class="search-btn">
+                <input class="search-input" type="text" placeholder="Nhập truyện cần tìm...">
+                <button type="submit" class="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
@@ -181,71 +76,56 @@
         <nav class="breadcrumb">
             <a href="/">Trang chủ</a>
             <span>/</span>
-            <span>Chỉ riêng đuôi là không được</span>
+            <span id="title"></span>
         </nav>
         <section class="story-header">
 
             <div class="story-cover">
 
-                <img class="cover" src="" alt="Cover">
-
-                <div class="share-buttons">
-
-                </div>
+                <img id="cover" class="cover" src="" alt="Cover">
 
             </div>
 
             <div class="story-info">
-
-                <h1>Chỉ riêng đuôi là không được!</h1>
-
-                <div class="genres">
-                    <a href="#">BL</a>
-                    <a href="#">action</a>
-                    <a href="#">comedy</a>
+                <div class="title-row">
+                    <h1 id="bigtitle"></h1>
+                    <button class="info-btn">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Thông tin
+                    </button>
                 </div>
 
-                <p class="other-title">
-                    Don't tourch my tail!
-                </p>
+
+                <div class="genres"></div>
+
+                <p id="originalName" class="other-title"></p>
 
                 <ul class="story-meta">
                     <li>
-                        <i class="fa-solid fa-user-group">
-                            <span>Nhóm dịch: </span>
-                        </i>
+                        <i class="fa-solid fa-user-group"></i>
+                        <span id="authorss"></span>
                     </li>
                     <li>
-                        <i>
-                            <span>
-                                Tình trạng: Đang cập nhật
-                            </span>
-                        </i>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span id="status"></span>
                     </li>
                     <li>
-                        <i>
-                            <span>
-                                Cập nhật:
-                            </span>
-                        </i>
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span id="updatedAt"></span>
                     </li>
                     <li>
-                        <i class="fa-regular fa-bookmark">
-                            <span>
-                                Lượt theo dõi:
-                            </span>
-                        </i>
+                        <i class="fa-regular fa-bookmark"></i>
+                        <span id="follows"></span>
                     </li>
                     <li>
-                        <i class="fa-solid fa-eye">
-                            <span>Lượt xem: 20000</span>
-                        </i>
+                        <i class="fa-solid fa-eye"></i>
+                        <span id="views"></span>
                     </li>
                 </ul>
 
                 <div class="story-actions">
                     <button class="btn btn-primary">
-                        đọc từ đầu
+                        Đọc từ đầu
                     </button>
                     <button class="btn btn-secondary">
                         Đọc chương mới nhất
@@ -259,29 +139,319 @@
                 </div>
 
                 <div class="description">
-                    <h2>
-                        Giới thiệu
-                    </h2>
-                    <p>
-                        ...
-                    </p>
+                    <h2>Giới thiệu</h2>
+                    <p id="description"></p>
                 </div>
 
             </div>
 
-        </section>
-        <section class="chapter">
-            <div class="chapter-title">
-                Danh sách chương
-            </div>
-            <div class="chapter-box">
+            <div class="popup-overlay">
+                <div class="story-popup">
+                    <button class="close-popup">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <div class="popup-left">
+                        <img id="coverpopup" src="" class="popup-cover">
+                    </div>
 
+                    <div class="popup-right">
+                        <h2 id="titlepopup"></h2>
+                        <table>
+                            <tr>
+                                <td>Tên gốc</td>
+                                <td id="originalTitle"></td>
+                            </tr>
+                            <tr>
+                                <td>Mô tả</td>
+                                <td id="descriptionpopup"></td>
+                            </tr>
+                            <tr>
+                                <td>Tình trạng</td>
+                                <td id="statuspopup"></td>
+                            </tr>
+                            <tr>
+                                <td>Tình trạng dịch</td>
+                                <td id="translationStatus"></td>
+                            </tr>
+                            <tr>
+                                <td>Điểm đánh giá trung bình</td>
+                                <td id="ratingAverage"></td>
+                            </tr>
+                            <tr>
+                                <td>Số lượt đánh giá</td>
+                                <td id="ratingCount"></td>
+                            </tr>
+                            <tr>
+                                <td>Số lượt xem</td>
+                                <td id="viewspopup"></td>
+                            </tr>
+                            <tr>
+                                <td>Số lượt theo dõi</td>
+                                <td id="followspopup"></td>
+                            </tr>
+                            <tr>
+                                <td>Thời gian tạo</td>
+                                <td id="createdAt"></td>
+                            </tr>
+                            <tr>
+                                <td>Thời gian cập nhật</td>
+                                <td id="updatedAtpopup"></td>
+                            </tr>
+                            <tr id="authors">
+                            </tr>
+                            <tr id="artists">
+                            </tr>
+                            <tr id="types">
+                            </tr>
+                            <tr>
+                                <td>Ngôn ngữ</td>
+                                <td id="languages"></td>
+                            </tr>
+                            <tr id="characters">
+                            </tr>
+                            <tr id="publishers">
+                            </tr>
+                            <tr id="translators">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <section class="chapter">
+
+            <h2 class="chapter-title">
+                Danh sách chương
+            </h2>
+
+            <div id="chapter-list" class="chapter-list">
+            </div>
+
         </section>
     </main>
 
-    <section class="comment">Tính năng đang phát triển</section>
+    <section class="comments" hidden>Tính năng đang phát triển</section>
     <footer></footer>
 </body>
+
+<script>
+
+    const popup = document.querySelector(".popup-overlay");
+
+    document.querySelector(".info-btn").onclick = () => {
+
+        popup.classList.add("show");
+
+    };
+
+    document.querySelector(".close-popup").onclick = () => {
+
+        popup.classList.remove("show");
+
+    };
+
+    popup.onclick = (e) => {
+
+        if (e.target === popup) {
+            popup.classList.remove("show");
+        }
+
+    }
+
+    function renderStory(story) {
+        const languages = story.details.languages
+            .map(team => team.name)
+            .join(", ");
+
+        const statusMap = {
+            ongoing: "Đang cập nhật",
+            completed: "Hoàn thành",
+            hiatus: "Tạm ngưng",
+            dropped: "Đã hủy"
+        };
+
+        const translationStatusMap = {
+            ongoing: "Đang dịch",
+            completed: "Đã dịch xong",
+            dropped: "Đã ngừng dịch",
+            paused: "Tạm ngưng"
+        };
+
+        const updated = new Date(story.updatedAt);
+        const created = new Date(story.createdAt);
+
+        const authorList = document.getElementById("authors");
+        authorList.innerHTML = `
+            <td>Tác giả</td>
+            <td>
+                ${story.creators.authors
+                .map(author => `
+                <a href="/author/${author.slug}" class="author">
+                    ${author.name}
+                </a>
+                    `)
+                .join(", ")}
+            </td>
+            `;
+
+        const authorListt = document.getElementById("authorss");
+        authorListt.innerHTML = `
+            <a>Tác giả: </a>
+            <span>
+                ${story.creators.authors
+                .map(author => `
+                <a herf="/author/${author.slug}" class = "author">
+                    ${author.name}
+                </a>`)
+                .join(", ")}
+            </span>
+        `;
+
+        const artistList = document.getElementById("artists");
+        artistList.innerHTML = `
+            <td>Họa sĩ</td>
+            <td>
+                ${story.creators.artists
+                .map(artist => `
+                <a href="/artist/${artist.slug}" class="artist">
+                    ${artist.name}
+                </a>
+                    `)
+                .join(", ")}
+            </td>
+            `;
+
+        const typeList = document.getElementById("types");
+        typeList.innerHTML = `
+            <td>Thể loại</td>
+            <td>
+                ${story.details.types
+                .map(type => `
+                <a href="/type/${type.slug}" class="type">
+                    ${type.name}
+                </a>
+                    `)
+                .join(", ")}
+            </td>
+            `;
+
+        const characterList = document.getElementById("characters");
+        characterList.innerHTML = `
+            <td>Nhân vật</td>
+            <td>
+                ${story.details.characters
+                .map(character => `
+                <a>${character.role}: </a>
+                <a href="/character/${character.id}" class="character">
+                    ${character.name}
+                </a>
+                    `)
+                .join(" | ")}
+            </td>
+            `;
+
+        const publisherList = document.getElementById("publishers");
+        publisherList.innerHTML = `
+            <td>Nền tảng dịch/ nhóm dịch</td>
+            <td>
+                ${story.services.publishers
+                .map(publisher => `
+                <a href="/publisher/${publisher.slug}" class="publisher">
+                    ${publisher.name}
+                </a>
+                    `)
+                .join(", ")}
+            </td>
+            `;
+
+        const translatorList = document.getElementById("translators");
+        translatorList.innerHTML = `
+            <td>Nền tảng phát hành</td>
+            <td>
+                ${story.services.translators
+                .map(translator => `
+                <a href="/translator/${translator.slug}" class="translator">
+                    ${translator.name}
+                </a>
+                    `)
+                .join(", ")}
+            </td>
+            `;    
+
+        document.getElementById("title").textContent = story.title;
+        document.getElementById("bigtitle").textContent = story.title;
+        document.getElementById("cover").src = story.coverUrl;
+        document.getElementById("originalName").textContent = story.originalTitle;
+        document.getElementById("status").textContent = "Tình trạng: " + statusMap[story.status] ?? story.status;
+        document.getElementById("updatedAt").textContent = "Cập nhật: " + updated.toLocaleString("vi-VN");
+        document.getElementById("follows").textContent = "Lượt theo dõi: " + story.follows;
+        document.getElementById("views").textContent = "Lượt xem: " + story.views;
+        document.getElementById("description").textContent = story.description;
+        document.getElementById("coverpopup").src = story.coverUrl;
+        document.getElementById("titlepopup").textContent = story.title;
+        document.getElementById("originalTitle").textContent = story.originalTitle;
+        document.getElementById("descriptionpopup").textContent = story.description;
+        document.getElementById("statuspopup").textContent = statusMap[story.status] ?? story.status;;
+        document.getElementById("translationStatus").textContent = translationStatusMap[story.translationStatus] ?? story.translationStatus;;
+        document.getElementById("ratingAverage").textContent = story.ratingAverage;
+        document.getElementById("ratingCount").textContent = story.ratingCount;
+        document.getElementById("viewspopup").textContent = story.views;
+        document.getElementById("followspopup").textContent = story.follows;
+        document.getElementById("createdAt").textContent = created.toLocaleString("vi-VN");
+        document.getElementById("updatedAtpopup").textContent = updated.toLocaleString("vi-VN");
+        document.getElementById("languages").textContent = languages;
+
+
+        const genresContainer = document.querySelector(".genres");
+        genresContainer.innerHTML = "";
+        story.details.genres.forEach(genre => {
+
+            genresContainer.innerHTML += `
+        <a href="/genres/${genre.slug}">
+            ${genre.name}
+        </a>
+    `;
+
+        });
+
+        const slug = location.pathname.replace("/read/", "");
+
+        const chapterList = document.getElementById("chapter-list");
+        chapterList.innerHTML = "";
+        story.chapters.forEach(chap => {
+            chapterList.innerHTML += `
+                <a class="chapter-item" href="/read/${slug}/chapter/${chap.chapterNumber}">
+                    <div class="chapter-number">
+                        Chương ${chap.chapterNumber}
+                     </div>
+
+                    <div class="chapter-name">
+                        ${chap.title}
+                    </div>
+                </a>
+            `;
+        });
+    }
+
+    async function loadStory() {
+
+        const slug = location.pathname.replace("/read/", "");
+
+        const res = await fetch(`/stories/${slug}`);
+
+        const json = await res.json();
+
+        if (!json.success) {
+            alert("Không tìm thấy truyện");
+            return;
+        }
+
+        renderStory(json.data);
+
+    }
+
+    loadStory();
+</script>
 
 </html>
