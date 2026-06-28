@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title id="titletitle"></title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #08111f;
+            color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:
+                system-ui,
+                -apple-system,
+                Segoe UI,
+                Roboto,
+                Arial,
+                sans-serif;
+
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="header-left">
+
+            <a href="/" class="logo" alt="logo">
+                <img src="https://bwl3ugxlcpfaxorl.public.blob.vercel-storage.com/search-icon">
+            </a>
+
+            <nav class="menu">
+                <a href="#">Home</a>
+                <a href="#">Mới</a>
+                <a href="#">Phổ biến</a>
+            </nav>
+
+        </div>
+
+        <div class="header-right">
+
+            <form class="search">
+                <input class="search-input" type="text" placeholder="Nhập truyện cần tìm...">
+                <button type="submit" class="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+            <button class="bookmark">
+                <i class="fa-regular fa-bookmark"></i>
+            </button>
+
+            <button class="account">
+                <i class="fa-regular fa-circle-user"></i>
+            </button>
+
+        </div>
+
+    </header>
+    <section class="chapter-header">
+
+        <div class="breadcrumb">
+            <a href="/">
+                <i data-lucide="house"></i>
+                Trang chủ
+            </a>
+
+            <i data-lucide="chevron-right"></i>
+
+            <span id="titleb"></span>
+
+            <i data-lucide="chevron-right"></i>
+
+            <span id="chapterNumberb"></span>
+        </div>
+
+        <h1 id="title" class="chapter-title"></h1>
+
+        <div id="chapterNumber" class="chapter-number"></div>
+
+        <div class="update-box" id="updatedAt"></div>
+
+        <div class="chapter-nav">
+            <span id="chapterPre"></span>
+            <span id="chapterNext"></span>
+        </div>
+
+    </section>
+    <div id="chapter-images" class="chapter-images"></div>
+    <div class="reader-controls">
+        <button id="home-btn" class="control-btn">
+            <i data-lucide="house"></i>
+        </button>
+
+        <span id="control-pre"></span>
+
+        <div class="chapter-dropdown">
+            <button class="chapter-btn" id="chapterDropdownBtn">
+                <span id="chapterNumberc"></span>
+                <i data-lucide="chevron-down" id="chapterChevron"></i>
+            </button>
+        
+            <div class="chapter-menu" id="chapterMenu">
+                <div class="chapter-search">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="chapterSearch" placeholder="Tìm chương...">
+                </div>
+        
+                <div class="chapter-list" id="chapterList">
+                    <!-- Render chapter ở đây -->
+                </div>
+            </div>
+        </div>
+
+        <span id="control-next"></span>
+
+        <div class="spacer"></div>
+
+        <button class="control-btn">
+            <i data-lucide="settings"></i>
+        </button>
+
+        <button class="control-btn">
+            <i data-lucide="star"></i>
+        </button>
+    </div>
+    <div class="reader-floating-buttons">
+
+        <button id="btnTop" class="floating-btn">
+            <i data-lucide="arrow-up"></i>
+        </button>
+
+        <button id="btnBottom" class="floating-btn">
+            <i data-lucide="arrow-down"></i>
+        </button>
+
+    </div>
+    <div class="reader-progress" id="readerProgress">
+
+        <div class="progress-fill"></div>
+
+        <div class="progress-thumb">
+            <i data-lucide="mouse-pointer-2"></i>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+
+
+
+
+        const btnTop = document.getElementById("btnTop");
+        const btnBottom = document.getElementById("btnBottom");
+
+        btnTop.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+        btnBottom.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth"
+            });
+
+        });
+
+        const progress = document.querySelector(".reader-progress");
+        const fill = document.querySelector(".progress-fill");
+        const thumb = document.querySelector(".progress-thumb");
+
+        function updateProgress() {
+
+            const max =
+                document.documentElement.scrollHeight
+                - window.innerHeight;
+
+            const percent =
+                window.scrollY / max * 100;
+
+            fill.style.width = percent + "%";
+
+            thumb.style.left = percent + "%";
+
+        }
+
+        window.addEventListener("scroll", updateProgress);
+
+        progress.addEventListener("click", (e) => {
+
+            const rect = progress.getBoundingClientRect();
+
+            const percent =
+                (e.clientX - rect.left) / rect.width;
+
+            const max =
+                document.documentElement.scrollHeight
+                - window.innerHeight;
+
+            window.scrollTo({
+
+                top: max * percent,
+
+                behavior: "smooth"
+
+            });
+
+        });
+
+        const imageContainer = document.getElementById("chapter-images");
+
+        function renderChapterList(chapters, current, story) {
+
+                const list = document.getElementById("chapterList");
+
+                list.innerHTML = chapters.map(ch => `
+
+        <div class="chapter-item
+            ${ch.chapterNumber === current ? "active" : ""}
+            "
+            data-number="${ch.chapterNumber}">
+
+            <span>Chương ${ch.chapterNumber}</span>
+
+            <i data-lucide="${ch.chapterNumber === current
+                        ? "check"
+                        : "chevron-right"
+                    }"></i>
+
+        </div>
+
+    `).join("");
+
+                lucide.createIcons();
+
+                document
+                    .querySelectorAll(".chapter-item")
+                    .forEach(item => {
+
+                        item.onclick = () => {
+
+                            location.href = `/read/${story.slug}/chapter/${item.dataset.number}`;
+
+                        };
+
+                    });
+            }
+
+        function renderImages(images) {
+            imageContainer.innerHTML = "";
+
+            images.forEach(image => {
+                const img = document.createElement("img");
+
+                img.src = image.imageUrl;
+                img.alt = `Page ${image.imageOrder + 1}`;
+                img.loading = "lazy";
+                img.decoding = "async";
+
+                imageContainer.appendChild(img);
+            });
+        }
+
+        function renderChapter(chapter) {
+            document.getElementById("titletitle").textContent = chapter.story.title;
+            document.getElementById("title").textContent = chapter.story.title;
+            document.getElementById("chapterNumberb").textContent = chapter.chapter.chapterNumber;
+            document.getElementById("chapterNumber").textContent = chapter.chapter.title;
+            document.getElementById("chapterNumberc").textContent = chapter.chapter.chapterNumber;
+
+            document.getElementById("titleb").innerHTML = `
+        <a href="/read/${chapter.story.slug}">
+            ${chapter.story.title}
+        </a>
+    `;
+
+            document.getElementById("updatedAt").innerHTML = `
+        <i data-lucide="calendar-days"></i>
+        <span>Cập nhật:</span>
+        <strong>${chapter.chapter.updatedAt}</strong>
+    `;
+
+            // Chương trước
+            if (chapter.navigation.chapterPre) {
+                document.getElementById("chapterPre").innerHTML = `
+            <button class="chapter-btn" id="chapterPrebtn">
+                <i data-lucide="arrow-left"></i>
+                Chương trước
+            </button>
+        `;
+
+                document.getElementById("control-pre").innerHTML = `
+            <button class="control-btn" id="chapterPrebtn1">
+                <i data-lucide="chevron-left"></i>
+            </button>
+        `;
+            } else {
+                document.getElementById("chapterPre").innerHTML = `
+            <button class="chapter-btn" hidden>
+                <i data-lucide="arrow-left"></i>
+                Chương trước
+            </button>
+        `;
+
+                document.getElementById("control-pre").innerHTML = `
+            <button class="control-btn" hidden>
+                <i data-lucide="chevron-left"></i>
+            </button>
+        `;
+            }
+
+            // Chương sau
+            if (chapter.navigation.chapterNext) {
+                document.getElementById("chapterNext").innerHTML = `
+            <button class="chapter-btn" id="chapterNextbtn">
+                Chương sau
+                <i data-lucide="arrow-right"></i>
+            </button>
+        `;
+
+                document.getElementById("control-next").innerHTML = `
+            <button class="control-btn" id="chapterNextbtn1">
+                <i data-lucide="chevron-right"></i>
+            </button>
+        `;
+            } else {
+                document.getElementById("chapterNext").innerHTML = `
+            <button class="chapter-btn" hidden>
+                Chương sau
+                <i data-lucide="arrow-right"></i>
+            </button>
+        `;
+
+                document.getElementById("control-next").innerHTML = `
+            <button class="control-btn" hidden>
+                <i data-lucide="chevron-right"></i>
+            </button>
+        `;
+            }
+
+            // Khởi tạo icon sau khi render HTML
+            lucide.createIcons();
+
+            // Gán sự kiện
+            document.getElementById("chapterPrebtn")?.addEventListener("click", () => {
+                location.href = `/read/${chapter.story.slug}/chapter/${chapter.navigation.chapterPre}`;
+            });
+
+            document.getElementById("chapterPrebtn1")?.addEventListener("click", () => {
+                location.href = `/read/${chapter.story.slug}/chapter/${chapter.navigation.chapterPre}`;
+            });
+
+            document.getElementById("chapterNextbtn")?.addEventListener("click", () => {
+                location.href = `/read/${chapter.story.slug}/chapter/${chapter.navigation.chapterNext}`;
+            });
+
+            document.getElementById("chapterNextbtn1")?.addEventListener("click", () => {
+                location.href = `/read/${chapter.story.slug}/chapter/${chapter.navigation.chapterNext}`;
+            });
+
+            document.getElementById("home-btn")?.addEventListener("click", () => {
+                location.href = "/";
+            });
+
+            const menu = document.getElementById("chapterMenu");
+            const btn = document.getElementById("chapterDropdownBtn");
+            const chevron = document.getElementById("chapterChevron");
+
+            btn.onclick = () => {
+                menu.classList.toggle("show");
+                chevron.style.transform =
+                    menu.classList.contains("show")
+                        ? "rotate(180deg)"
+                        : "rotate(0deg)";
+            };
+
+            // click ngoài để đóng
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".chapter-dropdown")) {
+                    menu.classList.remove("show");
+                    chevron.style.transform = "rotate(0deg)";
+                }
+            });
+
+            document
+                .getElementById("chapterSearch")
+                .addEventListener("input", e => {
+
+                    const keyword = e.target.value.toLowerCase();
+
+                    document
+                        .querySelectorAll(".chapter-item")
+                        .forEach(item => {
+
+                            item.style.display =
+                                item.textContent
+                                    .toLowerCase()
+                                    .includes(keyword)
+                                    ? "flex" : "none";
+
+                        });
+
+                });
+        }
+
+
+        async function loadchapter() {
+            const path = window.location.pathname;
+
+            const parts = path.split("/");
+
+            const slug = parts[2];
+            const chapterNumber = parts[4];
+            const response = await fetch(`/stories/${slug}/chapters/${chapterNumber}`);
+            const result = await response.json();
+            renderImages(result.data.images);
+            renderChapter(result.data);
+            renderChapterList(result.data.chapterList, chapterNumber, result.data.story);
+        }
+
+
+        loadchapter();
+    </script>
+</body>
+
+</html>

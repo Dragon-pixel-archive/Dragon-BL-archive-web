@@ -57,6 +57,14 @@ export async function getChapter(storySlug, chapterNumber) {
     const chapterPre = chapterNumber > 1 ? (+chapterNumber) - 1 : null;
     const chapterNext = chapterNumber < maxChapter ? (+chapterNumber) + 1 : null;
 
+    const chapterList = await db
+        .select({
+            chapterNumber: chapters.chapterNumber,
+            title: chapters.title,
+        })
+        .from(chapters)
+        .where(eq(chapters.storyId,story.id));
+
     return {
         story,
         chapter,
@@ -67,6 +75,7 @@ export async function getChapter(storySlug, chapterNumber) {
             chapterNumber,
             chapCount
         },
+        chapterList
     };
 
 }

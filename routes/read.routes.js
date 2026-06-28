@@ -10,4 +10,8 @@ router.get("/:slug", (req, res) => {
     res.sendFile(path.join(__dirname, "../views/story.html"));
 });
 
+router.get("/:slug/chapter/:chapterNumber", (req, res) => {
+    res.sendFile(path.join(__dirname, "../views/chapter.html"));
+});
+
 export default router;

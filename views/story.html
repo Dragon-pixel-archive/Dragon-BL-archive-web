@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title></title>
+    <title id="titletitle"></title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -380,6 +380,7 @@
             `;    
 
         document.getElementById("title").textContent = story.title;
+        document.getElementById("titletitle").textContent = story.title;
         document.getElementById("bigtitle").textContent = story.title;
         document.getElementById("cover").src = story.coverUrl;
         document.getElementById("originalName").textContent = story.originalTitle;
